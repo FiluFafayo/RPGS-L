@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jalur Takdir - Game</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <h1>🎲 Jalur Takdir</h1>
+            <p class="subtitle">Perjalanan Epik di Dunia Aethoria</p>
+            <button id="btn-start-game" class="btn-primary">Mulai Petualangan</button>
+            <div class="game-info">
+                <p>Board game fantasi RPG dengan elemen pilihan naratif</p>
+                <p>1-4 pemain | 60-120 menit</p>
+            </div>
+        </div>
+
+        <!-- Character Creation Screen -->
+        <div id="character-screen" class="screen">
+            <h2>Buat Karakter Anda</h2>
+            <div class="form-group">
+                <label for="char-name">Nama Karakter:</label>
+                <input type="text" id="char-name" placeholder="Masukkan nama..." maxlength="20">
+            </div>
+            
+            <div class="form-group">
+                <label>Pilih Race:</label>
+                <div class="race-selector" id="race-selector">
+                    <div class="race-option" data-race="human">
+                        <span class="race-icon">🧑</span>
+                        <span class="race-name">Human</span>
+                        <span class="race-desc">Seimbang, adaptif</span>
+                    </div>
+                    <div class="race-option" data-race="elf">
+                        <span class="race-icon">🧝</span>
+                        <span class="race-name">Elf</span>
+                        <span class="race-desc">+2 Mistik, +1 Ketangkasan</span>
+                    </div>
+                    <div class="race-option" data-race="dwarf">
+                        <span class="race-icon">🧔</span>
+                        <span class="race-name">Dwarf</span>
+                        <span class="race-desc">+2 Kekuatan, +2 HP</span>
+                    </div>
+                    <div class="race-option" data-race="halfling">
+                        <span class="race-icon">🧒</span>
+                        <span class="race-name">Halfling</span>
+                        <span class="race-desc">+2 Ketangkasan, +1 Kebijaksanaan</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Pilih Class:</label>
+                <div class="class-selector" id="class-selector">
+                    <div class="class-option" data-class="warrior">
+                        <span class="class-icon">⚔️</span>
+                        <span class="class-name">Warrior</span>
+                        <span class="class-desc">HP tinggi, ahli combat</span>
+                    </div>
+                    <div class="class-option" data-class="rogue">
+                        <span class="class-icon">🗡️</span>
+                        <span class="class-name">Rogue</span>
+                        <span class="class-desc">Ahli stealth & manipulasi</span>
+                    </div>
+                    <div class="class-option" data-class="mage">
+                        <span class="class-icon">🔮</span>
+                        <span class="class-name">Mage</span>
+                        <span class="class-desc">Kekuatan magis, kontrol dadu</span>
+                    </div>
+                    <div class="class-option" data-class="cleric">
+                        <span class="class-icon">✨</span>
+                        <span class="class-name">Cleric</span>
+                        <span class="class-desc">Penyembuh, bonus diplomasi</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btn-confirm-char" class="btn-primary" disabled>Mulai Permainan</button>
+        </div>
+
+        <!-- Game Board Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="player-info">
+                    <span id="player-display">Player 1</span>
+                    <span id="turn-display">Giliran 1</span>
+                </div>
+                <div class="game-controls">
+                    <button id="btn-end-turn" class="btn-secondary">Akhiri Giliran</button>
+                </div>
+            </div>
+
+            <div class="board-container">
+                <div id="game-board" class="game-board"></div>
+            </div>
+
+            <div class="game-actions">
+                <div class="dice-section">
+                    <div id="dice-display" class="dice-display">
+                        <span class="die">🎲</span>
+                        <span class="die">🎲</span>
+                    </div>
+                    <button id="btn-roll-dice" class="btn-primary">Lempar Dadu</button>
+                    <div class="action-points">
+                        <span>Action Points: </span>
+                        <span id="ap-display">2</span>
+                        <button id="btn-use-ap-plus" class="btn-ap">+</button>
+                        <button id="btn-use-ap-minus" class="btn-ap">-</button>
+                    </div>
+                </div>
+                <div class="move-section">
+                    <span id="move-display">Langkah: 0</span>
+                    <button id="btn-move" class="btn-primary" disabled>Bergerak</button>
+                </div>
+            </div>
+
+            <div class="player-stats">
+                <div class="stat-box">
+                    <span class="stat-label">HP</span>
+                    <span id="hp-display" class="stat-value">20/20</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Gold</span>
+                    <span id="gold-display" class="stat-value">10</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">VP</span>
+                    <span id="vp-display" class="stat-value">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">STR</span>
+                    <span id="str-display" class="stat-value">3</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">AGI</span>
+                    <span id="agi-display" class="stat-value">3</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">WIS</span>
+                    <span id="wis-display" class="stat-value">3</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">MST</span>
+                    <span id="mst-display" class="stat-value">3</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Modal -->
+        <div id="event-modal" class="modal">
+            <div class="modal-content">
+                <h3 id="event-title">Event Title</h3>
+                <p id="event-description">Event description goes here...</p>
+                <div id="event-choices" class="event-choices"></div>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over-screen" class="screen">
+            <h2 id="game-over-title">Permainan Selesai!</h2>
+            <div id="game-over-stats" class="game-over-stats"></div>
+            <button id="btn-play-again" class="btn-primary">Main Lagi</button>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
